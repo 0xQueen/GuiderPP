@@ -1617,7 +1617,6 @@ function GithubEditLink(props) {
 
 // src/client/partials/content-footer/content-footer.tsx
 import { Fragment as Fragment13, jsx as jsx29, jsxs as jsxs16 } from "react/jsx-runtime";
-var guiderDocumentationLink = "https://neatojs.com/docs/guider";
 var iconMap2 = {
   discord: "ic:twotone-discord",
   github: "mdi:github",
@@ -1651,19 +1650,7 @@ function ContentFooterInternal() {
       socials.length > 0 ? /* @__PURE__ */ jsx29("div", { className: "gd-flex gd-items-center gd-space-x-0.5", children: (site.contentFooter?.socials ?? []).map((v) => /* @__PURE__ */ jsx29(FooterSocial, { icon: iconMap2[v.type], url: v.url }, v.type)) }) : null,
       /* @__PURE__ */ jsxs16("div", { children: [
         site.contentFooter?.text ?? copyright,
-        " ",
-        /* @__PURE__ */ jsx29("span", { className: "gd-text-line gd-mx-1", children: "\u2014" }),
-        " ",
-        /* @__PURE__ */ jsx29(
-          Link6,
-          {
-            href: guiderDocumentationLink,
-            target: "_blank",
-            rel: "noopener noreferrer",
-            className: "hover:gd-opacity-50",
-            children: "Powered by Guider++"
-          }
-        )
+        " "
       ] })
     ] }),
     editUrl ? /* @__PURE__ */ jsx29("div", { className: "gd-w-40 gd-text-right", children: /* @__PURE__ */ jsx29(GithubEditLink, { href: editUrl }) }) : null

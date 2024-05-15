@@ -2456,11 +2456,6 @@ video {
   color: rgb(var(--colors-bgLightest) / var(--tw-text-opacity));
 }
 
-.gd-text-line{
-  --tw-text-opacity: 1;
-  color: rgb(var(--colors-line) / var(--tw-text-opacity));
-}
-
 .gd-text-primary{
   --tw-text-opacity: 1;
   color: rgb(var(--colors-primary) / var(--tw-text-opacity));

@@ -46,15 +46,6 @@ export function ContentFooterInternal() {
         ) : null}
         <div>
           {site.contentFooter?.text ?? copyright}{' '}
-          <span className="gd-text-line gd-mx-1">—</span>{' '}
-          <Link
-            href={guiderDocumentationLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:gd-opacity-50"
-          >
-            Powered by Guider++
-          </Link>
         </div>
       </div>
       {editUrl ? (

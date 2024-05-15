@@ -1,4 +1,4 @@
-import { S as SiteComponent, M as MetaMapItem, P as PageMapItem, a as MetaConf, b as PopulatedLayoutSettings, D as DirectoryComponent, c as SiteLayoutComponent, L as LinkComponent, N as NestableLinkComponent } from './types-bf396e6b.js';
+import { S as SiteComponent, M as MetaMapItem, P as PageMapItem, a as MetaConf, b as PopulatedLayoutSettings, D as DirectoryComponent, c as SiteLayoutComponent, L as LinkComponent, N as NestableLinkComponent } from './types-93b8acca.js';
 import * as next from 'next';
 import { NextComponentType } from 'next';
 import * as react from 'react';
@@ -37,7 +37,7 @@ type CreateMdxPageOptions = {
 declare function createMdxPage(opts: CreateMdxPageOptions): react.FunctionComponent<{}> & {
     getInitialProps?(context: next.NextPageContext): {} | Promise<{}>;
 } & {
-    getLayout?: ((content: react.ReactElement<any, string | react.JSXElementConstructor<any>>) => react.ReactNode) | undefined;
+    getLayout?: (content: react.ReactElement<any, string | react.JSXElementConstructor<any>>) => react.ReactNode;
 };
 
 type GuiderPageWithLayout = NextComponentType & {
@@ -51,7 +51,7 @@ type CreateNotFoundPage = {
 declare function createNotFoundPage(opts?: CreateNotFoundPage): react.FunctionComponent<{}> & {
     getInitialProps?(context: next.NextPageContext): {} | Promise<{}>;
 } & {
-    getLayout?: ((content: react.ReactElement<any, string | react.JSXElementConstructor<any>>) => ReactNode) | undefined;
+    getLayout?: (content: react.ReactElement<any, string | react.JSXElementConstructor<any>>) => ReactNode;
 };
 
 type CreateRedirectOptions = {
@@ -63,8 +63,8 @@ declare function useGuiderPage(): {
     page: {
         meta: PageMeta;
         headings: MdxHeadings[];
-        excerpt?: string | undefined;
-    } | undefined;
+        excerpt?: string;
+    };
     metaMap: MetaMapItem[];
     settings: PopulatedLayoutSettings;
     directory: DirectoryComponent;
@@ -73,20 +73,16 @@ declare function useGuiderPage(): {
     navContext: {
         prev: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
-        } | null;
+            group?: string;
+        };
         current: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
+            group?: string;
         };
         next: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
-        } | null;
-    } | {
-        prev: null;
-        current: null;
-        next: null;
+            group?: string;
+        };
     };
 };
 
@@ -100,20 +96,16 @@ declare function getGuiderContext(pageUrl: string, pageMeta?: MetaConf): {
     navContext: {
         prev: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
-        } | null;
+            group?: string;
+        };
         current: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
+            group?: string;
         };
         next: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
-        } | null;
-    } | {
-        prev: null;
-        current: null;
-        next: null;
+            group?: string;
+        };
     };
 };
 declare function useGuider(pageMeta?: MetaConf): {
@@ -125,27 +117,23 @@ declare function useGuider(pageMeta?: MetaConf): {
     navContext: {
         prev: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
-        } | null;
+            group?: string;
+        };
         current: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
+            group?: string;
         };
         next: {
             item: LinkComponent | NestableLinkComponent;
-            group?: string | undefined;
-        } | null;
-    } | {
-        prev: null;
-        current: null;
-        next: null;
+            group?: string;
+        };
     };
 };
 
 declare function useVisibleIds(contentId: string, ids: string[]): string[];
 declare function useToc(ids: string[]): {
-    activeId: string | null;
-    scrollTo: (id: string) => null | undefined;
+    activeId: string;
+    scrollTo: (id: string) => any;
 };
 
 interface ThemeColorStoreColors {
@@ -188,7 +176,7 @@ declare function useGuiderTheme(): {
     colors: ThemeColorStoreColors;
 };
 
-declare function GuiderHeader(): react_jsx_runtime.JSX.Element | null;
+declare function GuiderHeader(): react_jsx_runtime.JSX.Element;
 
 type InternalGuiderLayoutProps = {
     children?: ReactNode;
@@ -198,15 +186,15 @@ type InternalGuiderLayoutProps = {
 };
 declare function GuiderLayout(props: InternalGuiderLayoutProps): react_jsx_runtime.JSX.Element;
 
-declare function GuiderSidebar(): react_jsx_runtime.JSX.Element | null;
+declare function GuiderSidebar(): react_jsx_runtime.JSX.Element;
 
-declare function GuiderToc(): react_jsx_runtime.JSX.Element | null;
+declare function GuiderToc(): react_jsx_runtime.JSX.Element;
 
-declare function GuiderLogo(): react_jsx_runtime.JSX.Element | null;
+declare function GuiderLogo(): react_jsx_runtime.JSX.Element;
 
-declare function GuiderContentFooter(): react_jsx_runtime.JSX.Element | null;
+declare function GuiderContentFooter(): react_jsx_runtime.JSX.Element;
 
-declare function GuiderpageFooter(): react_jsx_runtime.JSX.Element | null;
+declare function GuiderpageFooter(): react_jsx_runtime.JSX.Element;
 
 interface TabsProps {
     items: string[];

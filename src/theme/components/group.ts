@@ -24,7 +24,7 @@ export interface GroupBuilder {
   <T>(options: GroupOptions<T>): GroupComponent<T>;
 }
 
-export const group: GroupBuilder = (titleOrOptions: any, maybeItems?: any) => {
+export const group: GroupBuilder = (titleOrOptions: string | GroupOptions<any>, maybeItems?: GroupComponentChildren[]): GroupComponent<any> => {
   if (typeof titleOrOptions !== 'string') {
     const options: GroupOptions<any> = titleOrOptions;
     return {
@@ -33,7 +33,7 @@ export const group: GroupBuilder = (titleOrOptions: any, maybeItems?: any) => {
     };
   }
 
-  const items: GroupComponentChildren[] = maybeItems;
+  const items: GroupComponentChildren[] = maybeItems || [];
   return {
     title: titleOrOptions,
     type: 'group',

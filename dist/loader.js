@@ -13,8 +13,8 @@ import {
   normalize,
   extname,
   basename
-} from "path";
-import { readFile } from "fs/promises";
+} from "node:path";
+import { readFile } from "node:fs/promises";
 import { glob } from "glob";
 var pathSeparatorRegex = RegExp(`\\${sep}`, "g");
 function normalizePathSeparator(path2) {
@@ -111,7 +111,7 @@ function makeVirtualCache() {
 var virtualCache = makeVirtualCache();
 
 // src/webpack/plugin/theme-resolver.ts
-import path from "path";
+import path from "node:path";
 function themeFileResolver(themePath) {
   const url = path.resolve(themePath);
   return url;
@@ -157,12 +157,13 @@ function remarkSearchData() {
     let currentSection;
     let previousParentNode;
     visit(root, (node, _, parent) => {
+      var _a;
       if (node.type === "heading") {
         if (currentSection) {
           sections.push(currentSection);
         }
         const heading = node;
-        const id = heading.data?.id ?? "";
+        const id = ((_a = heading.data) == null ? void 0 : _a.id) ?? "";
         const depth = heading.depth;
         let text = "";
         visit(heading, ["text", "inlineCode"], (hChild) => {
@@ -201,6 +202,7 @@ function remarkSearchData() {
 // src/webpack/loader/md-loader.ts
 var EXPORT_FOOTER = "export default ";
 async function mdLoader(source) {
+  var _a;
   const meta = grayMatter(source);
   const file = await compile(source, {
     jsx: true,
@@ -286,7 +288,7 @@ async function mdLoader(source) {
     script,
     searchData: {
       sections: file.data.sections,
-      pageTitle: meta.data?.title ?? firstHeading?.value ?? void 0
+      pageTitle: ((_a = meta.data) == null ? void 0 : _a.title) ?? (firstHeading == null ? void 0 : firstHeading.value) ?? void 0
     }
   };
 }

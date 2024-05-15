@@ -12,8 +12,8 @@ import {
   normalize,
   extname,
   basename
-} from "path";
-import { readFile } from "fs/promises";
+} from "node:path";
+import { readFile } from "node:fs/promises";
 import { glob } from "glob";
 var pathSeparatorRegex = RegExp(`\\${sep}`, "g");
 function normalizePathSeparator(path2) {
@@ -110,7 +110,7 @@ function makeVirtualCache() {
 var virtualCache = makeVirtualCache();
 
 // src/webpack/plugin/theme-resolver.ts
-import path from "path";
+import path from "node:path";
 function themeFileResolver(themePath) {
   const url = path.resolve(themePath);
   return url;
@@ -150,9 +150,9 @@ var GuiderPlugin = class {
 };
 
 // src/webpack/search/index.ts
-import { relative as relative2, sep as sep2 } from "path";
-import { readFile as readFile2 } from "fs/promises";
-import { createHash } from "crypto";
+import { relative as relative2, sep as sep2 } from "node:path";
+import { readFile as readFile2 } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import webpack from "webpack";
 import { glob as glob2 } from "glob";
 
@@ -184,12 +184,13 @@ function remarkSearchData() {
     let currentSection;
     let previousParentNode;
     visit(root, (node, _, parent) => {
+      var _a;
       if (node.type === "heading") {
         if (currentSection) {
           sections.push(currentSection);
         }
         const heading = node;
-        const id = heading.data?.id ?? "";
+        const id = ((_a = heading.data) == null ? void 0 : _a.id) ?? "";
         const depth = heading.depth;
         let text = "";
         visit(heading, ["text", "inlineCode"], (hChild) => {
@@ -228,6 +229,7 @@ function remarkSearchData() {
 // src/webpack/loader/md-loader.ts
 var EXPORT_FOOTER = "export default ";
 async function mdLoader(source) {
+  var _a;
   const meta = grayMatter(source);
   const file = await compile(source, {
     jsx: true,
@@ -313,7 +315,7 @@ async function mdLoader(source) {
     script,
     searchData: {
       sections: file.data.sections,
-      pageTitle: meta.data?.title ?? firstHeading?.value ?? void 0
+      pageTitle: ((_a = meta.data) == null ? void 0 : _a.title) ?? (firstHeading == null ? void 0 : firstHeading.value) ?? void 0
     }
   };
 }
@@ -393,6 +395,7 @@ function guider(initConfig) {
   const guiderPlugin = new GuiderPlugin(guiderConfig);
   const searchPlugin = new GuiderSearchPlugin();
   function withGuider(nextConfig = {}) {
+    var _a;
     const extraWatchers = new ExtraWatchWebpackPlugin({
       files: ["pages/**/_meta.json"]
     });
@@ -400,7 +403,7 @@ function guider(initConfig) {
       ...nextConfig,
       images: {
         ...nextConfig.images ?? {},
-        unoptimized: nextConfig?.images?.unoptimized ?? true
+        unoptimized: ((_a = nextConfig == null ? void 0 : nextConfig.images) == null ? void 0 : _a.unoptimized) ?? true
       },
       transpilePackages: [
         "@neato/guider",
@@ -411,6 +414,7 @@ function guider(initConfig) {
         ...["md", "mdx"]
       ],
       webpack(config, options) {
+        var _a2;
         if (!config.plugins)
           config.plugins = [];
         config.plugins.push(guiderPlugin);
@@ -442,7 +446,7 @@ function guider(initConfig) {
             }
           ]
         });
-        return nextConfig.webpack?.(config, options) ?? config;
+        return ((_a2 = nextConfig.webpack) == null ? void 0 : _a2.call(nextConfig, config, options)) ?? config;
       }
     };
   }

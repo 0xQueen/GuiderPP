@@ -168,7 +168,7 @@ var group = (titleOrOptions, maybeItems) => {
       type: "group"
     };
   }
-  const items = maybeItems;
+  const items = maybeItems || [];
   return {
     title: titleOrOptions,
     type: "group",
@@ -188,7 +188,7 @@ var nestedLink = function(titleOrOptions, urlOrItems, maybeItems) {
   }
   if (typeof urlOrItems !== "string") {
     const title2 = titleOrOptions;
-    const items2 = urlOrItems;
+    const items2 = urlOrItems || [];
     return {
       items: items2,
       newTab: false,
@@ -196,7 +196,7 @@ var nestedLink = function(titleOrOptions, urlOrItems, maybeItems) {
       type: "nested-link"
     };
   }
-  const items = maybeItems;
+  const items = maybeItems || [];
   const title = titleOrOptions;
   const url = urlOrItems;
   return {
@@ -218,16 +218,21 @@ var linkFunc = function(titleOrOptions, maybeUrl, maybeOps) {
     };
   }
   const title = titleOrOptions;
-  const url = maybeUrl;
-  const ops = maybeOps;
+  let url = "";
+  let ops = {};
+  if (typeof maybeUrl === "string") {
+    url = maybeUrl;
+  } else {
+    ops = maybeUrl || {};
+  }
   return {
     title,
     type: "link",
-    style: ops?.style ?? "default",
+    style: ops.style || "default",
     to: url,
-    exact: ops?.exact,
-    icon: ops?.icon,
-    newTab: ops?.newTab ?? false
+    exact: ops.exact || void 0,
+    icon: ops.icon || void 0,
+    newTab: ops.newTab || false
   };
 };
 linkFunc.nested = nestedLink;

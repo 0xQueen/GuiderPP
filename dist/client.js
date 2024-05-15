@@ -139,15 +139,15 @@ function getPage(pageUrl) {
 }
 function getGuiderContext(pageUrl, pageMeta = {}) {
   const page = getPage(pageUrl);
-  const siteId = page?.config.site ?? pageMeta?.site ?? sites[0].id;
+  const siteId = (page == null ? void 0 : page.config.site) ?? (pageMeta == null ? void 0 : pageMeta.site) ?? sites[0].id;
   const site = sites.find((v) => v.id === siteId);
   if (!site)
     throw new Error("No site found with that id");
-  const dirId = page?.config.directory ?? pageMeta?.directory ?? site.directories[0].id;
+  const dirId = (page == null ? void 0 : page.config.directory) ?? (pageMeta == null ? void 0 : pageMeta.directory) ?? site.directories[0].id;
   const dir = site.directories.find((v) => v.id === dirId);
   if (!dir)
     throw new Error("No directory found with that id");
-  const layoutId = page?.config.layout ?? pageMeta?.layout ?? dir.layout;
+  const layoutId = (page == null ? void 0 : page.config.layout) ?? (pageMeta == null ? void 0 : pageMeta.layout) ?? dir.layout;
   const layout = site.layouts.find((v) => v.id === layoutId);
   if (!layout)
     throw new Error("No layout found");
@@ -178,7 +178,7 @@ import classNames13 from "classnames";
 import { useContext } from "react";
 function useGuiderPage() {
   const context = useContext(GuiderLayoutContext);
-  const guider = useGuider(context?.meta);
+  const guider = useGuider(context == null ? void 0 : context.meta);
   return {
     ...guider,
     page: context
@@ -278,7 +278,8 @@ function SidebarLink(props) {
 import { Fragment } from "react";
 import { jsx as jsx5 } from "react/jsx-runtime";
 function SidebarCustomComponent(props) {
-  return /* @__PURE__ */ jsx5(Fragment, { children: props.component.component?.() ?? null });
+  var _a, _b;
+  return /* @__PURE__ */ jsx5(Fragment, { children: ((_b = (_a = props.component).component) == null ? void 0 : _b.call(_a)) ?? null });
 }
 
 // src/client/partials/sidebar/separator.tsx
@@ -351,7 +352,7 @@ function SidebarNested(props) {
       return;
     function check() {
       setHasActiveChildren(
-        Boolean(el?.querySelector(".neato-guider-active-link"))
+        Boolean(el == null ? void 0 : el.querySelector(".neato-guider-active-link"))
       );
     }
     const observer = new MutationObserver(() => {
@@ -455,7 +456,7 @@ function SidebarStarLink(props) {
 import { jsx as jsx10 } from "react/jsx-runtime";
 function SidebarInternal() {
   const ctx = useContext2(GuiderLayoutContext);
-  const { directory } = useGuider(ctx?.meta);
+  const { directory } = useGuider(ctx == null ? void 0 : ctx.meta);
   return /* @__PURE__ */ jsx10("div", { className: "gd-flex gd-flex-col", children: /* @__PURE__ */ jsx10("div", { className: "gd-space-y-1 neato-guider-sidebar -gd-mx-4", children: directory.sidebar.map((link, i) => {
     const key = makeKey(i, link);
     if (link.type === "link" && link.style === "star")
@@ -623,7 +624,8 @@ function TabLink(props) {
   );
 }
 function CustomComponentTab(props) {
-  return /* @__PURE__ */ jsx15(Fragment5, { children: props.component.component?.() });
+  var _a, _b;
+  return /* @__PURE__ */ jsx15(Fragment5, { children: (_b = (_a = props.component).component) == null ? void 0 : _b.call(_a) });
 }
 function HeaderTabs(props) {
   return /* @__PURE__ */ jsx15("div", { className: "gd-border-t gd-border-line gd-px-6 gd-pb-0 -gd-mx-6 gd-space-x-6", children: props.tabs.map((v, i) => {
@@ -662,7 +664,8 @@ function NavLink(props) {
   );
 }
 function NavCustomComponent(props) {
-  return /* @__PURE__ */ jsx16(Fragment6, { children: props.component.component?.() });
+  var _a, _b;
+  return /* @__PURE__ */ jsx16(Fragment6, { children: (_b = (_a = props.component).component) == null ? void 0 : _b.call(_a) });
 }
 function NavSeparator() {
   return /* @__PURE__ */ jsx16("hr", { className: "gd-w-full gd-h-px md:gd-w-px md:gd-h-full gd-border-0 gd-bg-line" });
@@ -756,7 +759,7 @@ function HeaderDropdown(props) {
               "!gd-border-opacity-100 gd-text-textHeading": open
             }),
             children: [
-              /* @__PURE__ */ jsx17("span", { className: "gd-mr-2", children: activeItem?.title ?? "Select site" }),
+              /* @__PURE__ */ jsx17("span", { className: "gd-mr-2", children: (activeItem == null ? void 0 : activeItem.title) ?? "Select site" }),
               /* @__PURE__ */ jsx17(Icon, { icon: "flowbite:chevron-sort-solid", className: "gd-text-text" }),
               /* @__PURE__ */ jsx17(UpdateHead, { active: open })
             ]
@@ -806,7 +809,8 @@ function usePageSwitch(cb, deps) {
 // src/client/partials/header/sidebar-mobile-nav.tsx
 import { jsx as jsx18, jsxs as jsxs9 } from "react/jsx-runtime";
 function CustomComponentTab2(props) {
-  return /* @__PURE__ */ jsx18(Fragment9, { children: props.component.component?.() });
+  var _a, _b;
+  return /* @__PURE__ */ jsx18(Fragment9, { children: (_b = (_a = props.component).component) == null ? void 0 : _b.call(_a) });
 }
 function SidebarMobileNav(props) {
   const [navOpen, setNavOpen] = useState4(false);
@@ -1005,6 +1009,7 @@ function loadDocument(basePath, key) {
   return promise;
 }
 async function fetchDocument(basePath, key) {
+  var _a;
   const res = await fetch(
     `${basePath}/_next/static/chunks/guider-data-${key}.json`
   );
@@ -1029,7 +1034,7 @@ async function fetchDocument(basePath, key) {
       pageId++;
       searchDocument.add({
         id: pageId,
-        title: section.heading?.text ?? "",
+        title: ((_a = section.heading) == null ? void 0 : _a.text) ?? "",
         pageTitle: data.pageTitle,
         url: url + (section.heading ? `#${section.heading.id}` : ""),
         content: section.content
@@ -1054,6 +1059,7 @@ function useSearch(key) {
   const [results, setResults] = useState6(null);
   const doSearch = useCallback4(
     async (contentKey, searchQuery) => {
+      var _a, _b;
       setResultLoading(true);
       setResultLoadingError(false);
       try {
@@ -1061,10 +1067,10 @@ function useSearch(key) {
         const doc = contentDocument;
         if (!doc)
           throw new Error("Doc not loaded");
-        const docResults = doc.mainDoc.search(searchQuery, 5, {
+        const docResults = ((_b = (_a = doc.mainDoc.search(searchQuery, 5, {
           enrich: true,
           suggest: true
-        })?.[0]?.result ?? [];
+        })) == null ? void 0 : _a[0]) == null ? void 0 : _b.result) ?? [];
         setResults(
           docResults.map((res) => {
             return {
@@ -1188,9 +1194,10 @@ function SearchScreen(props) {
   );
   const onChange = useCallback5(
     (e) => {
+      var _a;
       if (e)
         void router.push(e.url);
-      props.onClose?.();
+      (_a = props.onClose) == null ? void 0 : _a.call(props);
     },
     [router, props.onClose]
   );
@@ -1331,8 +1338,9 @@ function HeaderSearch() {
 // src/client/partials/header/header.tsx
 import { Fragment as Fragment12, jsx as jsx24, jsxs as jsxs15 } from "react/jsx-runtime";
 function HeaderInternal() {
+  var _a, _b;
   const ctx = useContext3(GuiderLayoutContext);
-  const { site, settings } = useGuider(ctx?.meta);
+  const { site, settings } = useGuider(ctx == null ? void 0 : ctx.meta);
   const [isScrolledFromTop, setIsScrolledFromTop] = useState8(false);
   useEffect11(() => {
     const handleScroll = () => {
@@ -1386,8 +1394,8 @@ function HeaderInternal() {
                 {
                   items: site.navigation,
                   github: {
-                    org: site.github?.split("/")[0],
-                    repo: site.github?.split("/", 2)[1]
+                    org: (_a = site.github) == null ? void 0 : _a.split("/")[0],
+                    repo: (_b = site.github) == null ? void 0 : _b.split("/", 2)[1]
                   }
                 }
               ) : null })
@@ -1456,6 +1464,7 @@ function useToc(ids) {
   const [activeId, setActiveId] = useState9(null);
   useEffect12(() => {
     function recheck() {
+      var _a;
       const windowHeight = window.innerHeight || document.documentElement.clientHeight;
       const centerTarget = windowHeight / 4;
       const viewList = ids.map((id) => {
@@ -1475,7 +1484,7 @@ function useToc(ids) {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         setActiveId(viewList[0].id);
       } else {
-        setActiveId(viewList[0]?.id ?? "");
+        setActiveId(((_a = viewList[0]) == null ? void 0 : _a.id) ?? "");
       }
     }
     document.addEventListener("scroll", recheck);
@@ -1510,11 +1519,12 @@ function TocLink(props) {
         "a",
         {
           onClick: (e) => {
+            var _a;
             e.preventDefault();
             const url = new URL(window.location.href.toString());
             url.hash = props.heading.data.id;
             history.pushState({}, "", url);
-            props.onClick?.();
+            (_a = props.onClick) == null ? void 0 : _a.call(props);
           },
           href: `#${props.heading.data.id}`,
           className: classNames11({
@@ -1530,8 +1540,8 @@ function TocLink(props) {
 function TocInternal() {
   const ctx = useContext4(GuiderLayoutContext);
   const headings = useMemo4(
-    () => [...ctx?.headings ?? []].slice(1).filter((v) => v.depth <= 3),
-    [ctx?.headings]
+    () => [...(ctx == null ? void 0 : ctx.headings) ?? []].slice(1).filter((v) => v.depth <= 3),
+    [ctx == null ? void 0 : ctx.headings]
   );
   const ids = useMemo4(() => headings.map((v) => v.data.id), [headings]);
   const visibleIds = useVisibleIds("guider-content", ids);
@@ -1637,19 +1647,20 @@ function FooterSocial(props) {
   );
 }
 function ContentFooterInternal() {
+  var _a, _b, _c, _d;
   const year = (/* @__PURE__ */ new Date()).getFullYear();
   const { site } = useGuiderPage();
-  const editUrl = useEditLink(site?.contentFooter?.editRepositoryBase);
+  const editUrl = useEditLink((_a = site == null ? void 0 : site.contentFooter) == null ? void 0 : _a.editRepositoryBase);
   const copyright = /* @__PURE__ */ jsxs16(Fragment13, { children: [
     "Copyright \xA9 ",
     year
   ] });
-  const socials = site.contentFooter?.socials ?? [];
+  const socials = ((_b = site.contentFooter) == null ? void 0 : _b.socials) ?? [];
   return /* @__PURE__ */ jsxs16("footer", { className: "gd-py-3 gd-border-t gd-border-line gd-mt-12 gd-text-text gd-text-sm gd-flex gd-justify-between", children: [
     /* @__PURE__ */ jsxs16("div", { className: "gd-flex gd-gap-2 md:gd-gap-4 md:gd-items-center md:gd-flex-row gd-flex-col", children: [
-      socials.length > 0 ? /* @__PURE__ */ jsx29("div", { className: "gd-flex gd-items-center gd-space-x-0.5", children: (site.contentFooter?.socials ?? []).map((v) => /* @__PURE__ */ jsx29(FooterSocial, { icon: iconMap2[v.type], url: v.url }, v.type)) }) : null,
+      socials.length > 0 ? /* @__PURE__ */ jsx29("div", { className: "gd-flex gd-items-center gd-space-x-0.5", children: (((_c = site.contentFooter) == null ? void 0 : _c.socials) ?? []).map((v) => /* @__PURE__ */ jsx29(FooterSocial, { icon: iconMap2[v.type], url: v.url }, v.type)) }) : null,
       /* @__PURE__ */ jsxs16("div", { children: [
-        site.contentFooter?.text ?? copyright,
+        ((_d = site.contentFooter) == null ? void 0 : _d.text) ?? copyright,
         " "
       ] })
     ] }),
@@ -1671,10 +1682,11 @@ function GuiderContentFooter() {
 // src/client/partials/page-footer/page-footer.tsx
 import { jsx as jsx31, jsxs as jsxs17 } from "react/jsx-runtime";
 function PageFooterInternal() {
+  var _a;
   const { site } = useGuiderPage();
   return /* @__PURE__ */ jsxs17("footer", { className: "gd-py-6 gd-gap-8 gd-border-t gd-border-line gd-mt-6 gd-text-text gd-flex-col md:gd-flex-row gd-flex gd-items-start md:gd-items-center gd-justify-between", children: [
     /* @__PURE__ */ jsx31("div", { children: /* @__PURE__ */ jsx31(GuiderLogo, {}) }),
-    site.pageFooter?.text ? /* @__PURE__ */ jsx31("p", { className: "md:gd-text-right", children: site.pageFooter.text }) : null
+    ((_a = site.pageFooter) == null ? void 0 : _a.text) ? /* @__PURE__ */ jsx31("p", { className: "md:gd-text-right", children: site.pageFooter.text }) : null
   ] });
 }
 
@@ -1763,8 +1775,9 @@ function GuiderPageEnd() {
 // src/client/partials/layout/breadcrumb.tsx
 import { jsx as jsx35 } from "react/jsx-runtime";
 function Breadcrumb() {
+  var _a;
   const { navContext } = useGuiderPage();
-  if (!navContext.current?.group)
+  if (!((_a = navContext.current) == null ? void 0 : _a.group))
     return null;
   return /* @__PURE__ */ jsx35("p", { className: "gd-font-bold gd-mb-2 gd-text-primary gd-text-sm", children: navContext.current.group });
 }
@@ -1846,7 +1859,7 @@ function convertColor(color) {
 }
 function ThemeProvider() {
   const ctx = useContext5(GuiderLayoutContext);
-  const { settings } = useGuider(ctx?.meta);
+  const { settings } = useGuider(ctx == null ? void 0 : ctx.meta);
   const serializedSettings = JSON.stringify(settings.colors);
   const overwrittenColors = useThemeColorsStore((s) => s.colors);
   const style = useMemo6(() => {
@@ -1901,22 +1914,24 @@ import Head from "next/head.js";
 import { NextSeo } from "next-seo";
 import { jsx as jsx38 } from "react/jsx-runtime";
 function GuiderMetaComponent(props) {
+  var _a, _b;
   if (typeof props.meta === "function")
     return props.meta(props.pageMeta);
   return /* @__PURE__ */ jsx38(
     NextSeo,
     {
-      title: props.pageMeta?.title,
-      description: props.pageMeta?.description,
+      title: (_a = props.pageMeta) == null ? void 0 : _a.title,
+      description: (_b = props.pageMeta) == null ? void 0 : _b.description,
       ...props.meta
     }
   );
 }
 function GuiderMeta() {
+  var _a, _b, _c;
   const { page, site } = useGuiderPage();
   const pageMeta = {
-    title: page?.meta?.title ?? page?.headings[0]?.value,
-    description: page?.meta?.description ?? page?.excerpt
+    title: ((_a = page == null ? void 0 : page.meta) == null ? void 0 : _a.title) ?? ((_b = page == null ? void 0 : page.headings[0]) == null ? void 0 : _b.value),
+    description: ((_c = page == null ? void 0 : page.meta) == null ? void 0 : _c.description) ?? (page == null ? void 0 : page.excerpt)
   };
   return /* @__PURE__ */ jsx38(GuiderMetaComponent, { meta: site.meta ?? pageMeta, pageMeta });
 }
@@ -2316,8 +2331,8 @@ function FieldFunc(props) {
 }
 function Properties(props) {
   const texts = typeof props.text === "string" ? { hide: props.text, show: props.text } : props.text;
-  const showText = texts?.show ?? "Show properties";
-  const hideText = texts?.hide ?? "Hide properties";
+  const showText = (texts == null ? void 0 : texts.show) ?? "Show properties";
+  const hideText = (texts == null ? void 0 : texts.hide) ?? "Hide properties";
   return /* @__PURE__ */ jsx50(Disclosure, { as: "div", className: "gd-my-4", defaultOpen: props.defaultOpen, children: ({ open }) => /* @__PURE__ */ jsxs30(
     "div",
     {
@@ -2412,7 +2427,7 @@ function createNotFoundPage(opts) {
     /* @__PURE__ */ jsx53(Button, { to: "/", children: "Back to home" })
   ] }) });
   return createMdxPage({
-    MDXContent: () => opts?.content ?? content,
+    MDXContent: () => (opts == null ? void 0 : opts.content) ?? content,
     pageOpts: {
       meta: {
         layout: "page"
@@ -2683,7 +2698,7 @@ import { jsx as jsx59 } from "react/jsx-runtime";
 function MarkdownImage(props) {
   const router = useRouter7();
   const srcInput = props.attrs.src;
-  const src = srcInput?.startsWith("/") ? router.basePath + srcInput : srcInput;
+  const src = (srcInput == null ? void 0 : srcInput.startsWith("/")) ? router.basePath + srcInput : srcInput;
   return /* @__PURE__ */ jsx59(
     "img",
     {
